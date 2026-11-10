@@ -4,7 +4,7 @@
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Platform Status](https://img.shields.io/badge/Tests-34%20Passed-brightgreen.svg)](file:///d:/Ai/dukaanos/tests/)
+[![Platform Status](https://img.shields.io/badge/Tests-44%20Passed-brightgreen.svg)](file:///d:/Ai/dukaanos/tests/)
 
 > 📖 **Comprehensive Master Reference:** See [`docs/full-platform-capabilities-and-tech-stack.md`](file:///d:/Ai/dukaanos/docs/full-platform-capabilities-and-tech-stack.md) for full system capabilities, algorithmic formulations, ₹0 open-source technology stack, and phase-by-phase implementation details.
 
@@ -218,11 +218,19 @@ python -m pytest dukaanos/tests -v
   - Automated Overpaying Detection triggering supplier price gouging alerts (e.g., +6.0% premium over Mandi median) with Hindi negotiation scripts.
   - Collective Group Buying (Syndicate PO) engine pooling multi-store replenishment demands to unlock Tier-1 bulk discounts (+8.0% gross margin expansion).
 
+- [x] **Phase 10: Multilingual Indic Voice-Driven Inventory AI & Enterprise Rebalancer (Capstone)**
+  - Blueprint: [`docs/phase-10-voice-ai-and-enterprise-capstone.md`](file:///d:/Ai/dukaanos/docs/phase-10-voice-ai-and-enterprise-capstone.md)
+  - Visual Guide: [`docs/phase-10-visual-guide.md`](file:///d:/Ai/dukaanos/docs/phase-10-visual-guide.md)
+  - Hands-free Indic voice inventory updater: shopkeepers speak in any Indian language/dialect (Hindi, Hinglish, Bengali, Gujarati, Marathi, English).
+  - NLP engine extracts operational action (`PURCHASE`, `DAMAGE_EXPIRED`, `ADJUSTMENT`, `SALE`), parses Indic and native script numerals (Hindi, Bengali, Gujarati), maps vernacular commodity synonyms (`tel` $\to$ `oil`, `chawal` $\to$ `rice`, `চাল` $\to$ `rice`, `તેલ` $\to$ `oil`), and mutates the inventory ledger atomically.
+  - Web Speech Studio integrated in the web dashboard at `http://127.0.0.1:8000/` with interactive mic recording, real-time transcription, 1-click preset pills, and immediate speech synthesis (TTS) audio confirmation.
+  - Multi-store enterprise cross-branch rebalancing algorithm automatically transferring surplus inventory to deficit branches, preventing stockouts and saving operating capital.
+
 ---
 
 ## 9. Complete Verification & Test Suite
 
-The entire platform is covered by 40 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, multimodal ingestion, offline edge sync, credit risk, federated Mandi intelligence, and startup business metrics:
+The entire platform is covered by 44 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, multimodal ingestion, offline edge sync, credit risk, federated Mandi intelligence, voice inventory AI, and startup business metrics:
 
 ```bash
 # Run complete platform regression suite
@@ -230,15 +238,16 @@ python -m pytest dukaanos/tests/ -v
 ```
 
 ```
-dukaanos/tests/test_pipeline.py (5 tests)    --> Ledger conservation, deduplication, catalog integrity
-dukaanos/tests/test_backend.py (6 tests)     --> Health, multi-tenant isolation, idempotency, PO lifecycle, brief
-dukaanos/tests/test_ml.py (4 tests)          --> Features, zero lookahead bias, WAPE, ROP math
-dukaanos/tests/test_ai_agent.py (5 tests)    --> Multi-lingual intent, deterministic tools, guardrails, actions
-dukaanos/tests/test_mlops.py (5 tests)       --> Model registry, PSI drift monitoring, telemetry
-dukaanos/tests/test_multimodal.py (6 tests)  --> OCR fuzzy matcher, confidence thresholds, WhatsApp, UI serving
-dukaanos/tests/test_phase_8.py (3 tests)     --> Offline batch sync, idempotency, credit risk, UPI reminders
-dukaanos/tests/test_phase_9.py (3 tests)     --> Federated Mandi benchmarks, overpaying alerts, syndicate group PO
-dukaanos/tests/test_startup.py (3 tests)     --> Pilot cohort summary, KPI improvements, ROI unit economics
-============================== 40 passed in 12.5s ==============================
+dukaanos/tests/test_pipeline.py (5 tests)        --> Ledger conservation, deduplication, catalog integrity
+dukaanos/tests/test_backend.py (6 tests)         --> Health, multi-tenant isolation, idempotency, PO lifecycle, brief
+dukaanos/tests/test_ml.py (4 tests)              --> Features, zero lookahead bias, WAPE, ROP math
+dukaanos/tests/test_ai_agent.py (5 tests)        --> Multi-lingual intent, deterministic tools, guardrails, actions
+dukaanos/tests/test_mlops.py (5 tests)           --> Model registry, PSI drift monitoring, telemetry
+dukaanos/tests/test_multimodal.py (6 tests)      --> OCR fuzzy matcher, confidence thresholds, WhatsApp, UI serving
+dukaanos/tests/test_phase_8.py (3 tests)         --> Offline batch sync, idempotency, credit risk, UPI reminders
+dukaanos/tests/test_phase_9.py (3 tests)         --> Federated Mandi benchmarks, overpaying alerts, syndicate group PO
+dukaanos/tests/test_voice_inventory.py (4 tests) --> Voice inward addition, damage deduction, audit reconciliation, Indic languages
+dukaanos/tests/test_startup.py (3 tests)         --> Pilot cohort summary, KPI improvements, ROI unit economics
+============================== 44 passed in 25.8s ==============================
 ```
 

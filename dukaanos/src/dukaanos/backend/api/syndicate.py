@@ -86,3 +86,4 @@ def create_group_buying_syndicate(req: SyndicatePoolRequest):
         store_demands=req.store_demands,
         bulk_tier_threshold=req.bulk_tier_threshold,
     )
+

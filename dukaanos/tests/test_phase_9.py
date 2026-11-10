@@ -87,3 +87,4 @@ def test_syndicate_demand_pooling_and_savings():
     # Verify mathematical conservation of cost savings across all stores
     sum_individual_savings = sum(a["savings_inr"] for a in syndicate.store_allocations)
     assert round(sum_individual_savings, 2) == round(syndicate.total_savings_inr, 2)
+
