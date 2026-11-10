@@ -169,7 +169,14 @@ python -m pytest dukaanos/tests -v
   - Safety guardrails (budget caps, quantity ceilings, human approval gates).
   - Two-phase execution: agent prepares structured draft proposals, executing only upon explicit shopkeeper confirmation.
 
+- [x] **Phase 5: Production ML Systems, MLOps & Observability**
+  - Blueprint: [`docs/phase-5-production-mlops.md`](file:///d:/Ai/dukaanos/docs/phase-5-production-mlops.md)
+  - Versioned model registry with artifact serialization, metadata tracking, and stage transitions (`PRODUCTION` / `ARCHIVED`).
+  - Real-time Population Stability Index (PSI) & Kolmogorov-Smirnov (KS-test) data drift monitoring.
+  - Automated model degradation detection (spikes in 14-day WAPE trigger `TRIGGER_AUTOMATED_RETRAINING`).
+  - Production structured JSON logging for Grafana/CloudWatch and operational telemetry metrics.
+  - Multi-stage non-root `Dockerfile`, `docker-compose.yml` (PostgreSQL + Redis + FastAPI), and GitHub Actions CI/CD workflow.
+
 ### Upcoming Architecture Blueprints:
-- [ ] **Phase 5:** [`docs/phase-5-production-mlops.md`](file:///d:/Ai/dukaanos/docs/phase-5-production-mlops.md) — Docker containerization, MLflow model tracking, drift monitoring, and CI/CD pipelines.
 - [ ] **Phase 6:** [`docs/phase-6-field-deployment-and-startup.md`](file:///d:/Ai/dukaanos/docs/phase-6-field-deployment-and-startup.md) — Storekeeper pilot onboarding, ROI measurement, willingness-to-pay validation.
 
