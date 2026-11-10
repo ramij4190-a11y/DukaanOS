@@ -1,0 +1,101 @@
+product_id,product_name,category,unit,cost_price,selling_price,margin_pct,min_reorder_level,lead_time_days,shelf_life_days,base_daily_velocity,supplier_name
+STP-001,Aashirvaad Shudh Chakki Atta 5kg,Staples & Grains,Bag,225.0,245.0,8.16,25,2,90,8,Shree Ganesh Grain & Staples Mandi
+STP-002,Fortune Chakki Fresh Atta 10kg,Staples & Grains,Bag,410.0,445.0,7.87,15,2,90,5,Shree Ganesh Grain & Staples Mandi
+STP-003,India Gate Basmati Rice Classic 1kg,Staples & Grains,Pouch,145.0,165.0,12.12,30,3,365,7,Shree Ganesh Grain & Staples Mandi
+STP-004,Daawat Rozana Basmati Rice 5kg,Staples & Grains,Bag,370.0,410.0,9.76,15,3,365,4,Shree Ganesh Grain & Staples Mandi
+STP-005,Loose Sona Masoori Rice 1kg,Staples & Grains,kg,46.0,52.0,11.54,50,2,180,16,Shree Ganesh Grain & Staples Mandi
+STP-006,Tata Sampann Unpolished Toor Dal 1kg,Staples & Grains,Pouch,155.0,172.0,9.88,25,3,180,9,Shree Ganesh Grain & Staples Mandi
+STP-007,Loose Toor Dal Premium 1kg,Staples & Grains,kg,140.0,155.0,9.68,40,2,180,14,Shree Ganesh Grain & Staples Mandi
+STP-008,Tata Sampann Moong Dal 500g,Staples & Grains,Pouch,68.0,78.0,12.82,20,3,180,6,Shree Ganesh Grain & Staples Mandi
+STP-009,Loose Chana Dal 1kg,Staples & Grains,kg,82.0,92.0,10.87,30,2,180,10,Shree Ganesh Grain & Staples Mandi
+STP-010,Loose Kabuli Chana 1kg,Staples & Grains,kg,125.0,140.0,10.71,20,2,180,5,Shree Ganesh Grain & Staples Mandi
+STP-011,Tata Salt Vacuum Evaporated 1kg,Staples & Grains,Pouch,24.0,28.0,14.29,60,1,720,22,Shree Ganesh Grain & Staples Mandi
+STP-012,Tata Salt Lite 1kg,Staples & Grains,Pouch,38.0,45.0,15.56,15,2,720,4,Shree Ganesh Grain & Staples Mandi
+STP-013,Madhur Pure & Hygienic Sugar 1kg,Staples & Grains,Pouch,46.0,52.0,11.54,35,2,720,12,Shree Ganesh Grain & Staples Mandi
+STP-014,Loose Refined Sugar 1kg,Staples & Grains,kg,41.0,46.0,10.87,80,1,720,25,Shree Ganesh Grain & Staples Mandi
+STP-015,Loose Premium Maida 1kg,Staples & Grains,kg,38.0,44.0,13.64,25,2,90,8,Shree Ganesh Grain & Staples Mandi
+STP-016,Loose Premium Sooji / Rava 1kg,Staples & Grains,kg,40.0,46.0,13.04,25,2,90,7,Shree Ganesh Grain & Staples Mandi
+STP-017,Catch Turmeric Powder 200g,Staples & Grains,Pouch,52.0,62.0,16.13,20,3,365,6,Shree Ganesh Grain & Staples Mandi
+STP-018,MDH Deggi Mirch 100g,Staples & Grains,Box,72.0,84.0,14.29,20,3,365,5,Shree Ganesh Grain & Staples Mandi
+STP-019,Everest Coriander Powder 200g,Staples & Grains,Pouch,55.0,65.0,15.38,20,3,365,6,Shree Ganesh Grain & Staples Mandi
+STP-020,Tata Sampann Garam Masala 100g,Staples & Grains,Box,80.0,94.0,14.89,15,3,365,4,Shree Ganesh Grain & Staples Mandi
+OIL-001,Fortune Kachi Ghani Mustard Oil 1L,Edible Oils & Ghee,Bottle,132.0,148.0,10.81,30,2,270,14,Balaji Oil Trading Agency
+OIL-002,Engine Brand Mustard Oil 1L,Edible Oils & Ghee,Bottle,142.0,158.0,10.13,25,2,270,10,Balaji Oil Trading Agency
+OIL-003,Fortune Sunlite Refined Sunflower Oil 1L,Edible Oils & Ghee,Pouch,118.0,132.0,10.61,35,2,270,15,Balaji Oil Trading Agency
+OIL-004,Saffola Gold Blended Oil 1L,Edible Oils & Ghee,Bottle,152.0,175.0,13.14,20,3,270,8,Balaji Oil Trading Agency
+OIL-005,Gemini Refined Soybean Oil 1L,Edible Oils & Ghee,Pouch,108.0,122.0,11.48,30,2,270,11,Balaji Oil Trading Agency
+OIL-006,Fortune Soyabean Oil 1L Pouch,Edible Oils & Ghee,Pouch,110.0,124.0,11.29,30,2,270,12,Balaji Oil Trading Agency
+OIL-007,Amul Pure Ghee 1L Tin,Edible Oils & Ghee,Tin,585.0,640.0,8.59,15,3,270,6,Balaji Oil Trading Agency
+OIL-008,Amul Pure Ghee 500ml Pouch,Edible Oils & Ghee,Pouch,295.0,325.0,9.23,20,3,270,7,Balaji Oil Trading Agency
+OIL-009,Mother Dairy Pure Ghee 1L Tin,Edible Oils & Ghee,Tin,575.0,635.0,9.45,12,3,270,5,Balaji Oil Trading Agency
+OIL-010,Ananda Pure Cow Ghee 500ml,Edible Oils & Ghee,Jar,310.0,345.0,10.14,12,3,270,4,Balaji Oil Trading Agency
+OIL-011,Patanjali Cow Ghee 1L Pouch,Edible Oils & Ghee,Pouch,560.0,615.0,8.94,15,3,270,5,Balaji Oil Trading Agency
+OIL-012,Dhara Mustard Oil 1L Poly,Edible Oils & Ghee,Pouch,128.0,142.0,9.86,20,2,270,7,Balaji Oil Trading Agency
+OIL-013,Figaro Olive Oil Pure 500ml,Edible Oils & Ghee,Tin,620.0,715.0,13.29,6,4,720,1,Balaji Oil Trading Agency
+OIL-014,Tilsona Sesame Oil 500ml,Edible Oils & Ghee,Bottle,165.0,188.0,12.23,8,3,365,2,Balaji Oil Trading Agency
+OIL-015,Dalda Vanaspati 1L Pouch,Edible Oils & Ghee,Pouch,98.0,112.0,12.5,15,2,180,4,Balaji Oil Trading Agency
+PCK-001,Maggi 2-Minute Masala Noodles 70g,Packaged Foods & Snacks,Pouch,11.5,14.0,17.86,100,1,240,35,MahaLaxmi FMCG Distributors
+PCK-002,Maggi Masala Noodles 4-Pack 280g,Packaged Foods & Snacks,Pack,46.0,56.0,17.86,30,2,240,12,MahaLaxmi FMCG Distributors
+PCK-003,Yippee Magic Masala Noodles 65g,Packaged Foods & Snacks,Pouch,10.0,12.0,16.67,40,2,240,10,MahaLaxmi FMCG Distributors
+PCK-004,Parle-G Glucose Biscuits 250g,Packaged Foods & Snacks,Pack,25.0,30.0,16.67,80,1,180,28,MahaLaxmi FMCG Distributors
+PCK-005,Parle-G Gold Biscuits 100g,Packaged Foods & Snacks,Pack,8.2,10.0,18.0,60,1,180,20,MahaLaxmi FMCG Distributors
+PCK-006,Britannia Good Day Butter Cookies 200g,Packaged Foods & Snacks,Pack,38.0,45.0,15.56,40,2,180,16,MahaLaxmi FMCG Distributors
+PCK-007,Britannia Marie Gold Biscuits 300g,Packaged Foods & Snacks,Pack,34.0,40.0,15.0,50,2,180,18,MahaLaxmi FMCG Distributors
+PCK-008,Sunfeast Dark Fantasy Choco Fills 100g,Packaged Foods & Snacks,Box,40.0,50.0,20.0,25,2,180,7,MahaLaxmi FMCG Distributors
+PCK-009,Oreo Original Vanilla Creme 120g,Packaged Foods & Snacks,Pack,31.0,38.0,18.42,30,2,240,10,MahaLaxmi FMCG Distributors
+PCK-010,Lay's India's Magic Masala Chips 50g,Packaged Foods & Snacks,Pouch,16.5,20.0,17.5,50,1,120,22,MahaLaxmi FMCG Distributors
+PCK-011,Lay's Spanish Tomato Tango 50g,Packaged Foods & Snacks,Pouch,16.5,20.0,17.5,40,1,120,16,MahaLaxmi FMCG Distributors
+PCK-012,Kurkure Masala Munch 90g,Packaged Foods & Snacks,Pouch,16.5,20.0,17.5,50,1,120,24,MahaLaxmi FMCG Distributors
+PCK-013,Haldiram's Aloo Bhujia 200g,Packaged Foods & Snacks,Pouch,46.0,55.0,16.36,35,2,180,14,MahaLaxmi FMCG Distributors
+PCK-014,Haldiram's Khatta Meetha Mixture 200g,Packaged Foods & Snacks,Pouch,46.0,55.0,16.36,30,2,180,12,MahaLaxmi FMCG Distributors
+PCK-015,Bikano Bhujia Sev 200g,Packaged Foods & Snacks,Pouch,42.0,50.0,16.0,25,2,180,8,MahaLaxmi FMCG Distributors
+PCK-016,Kissan Fresh Tomato Ketchup 500g,Packaged Foods & Snacks,Bottle,102.0,125.0,18.4,20,3,270,6,MahaLaxmi FMCG Distributors
+PCK-017,Maggi Rich Tomato Ketchup Squeezy 500g,Packaged Foods & Snacks,Bottle,108.0,130.0,16.92,20,3,270,7,MahaLaxmi FMCG Distributors
+PCK-018,Brooke Bond Red Label Tea 500g,Packaged Foods & Snacks,Box,240.0,280.0,14.29,25,2,365,9,MahaLaxmi FMCG Distributors
+PCK-019,Tata Tea Gold 500g,Packaged Foods & Snacks,Pouch,255.0,295.0,13.56,25,2,365,10,MahaLaxmi FMCG Distributors
+PCK-020,Wagh Bakri Premium Leaf Tea 500g,Packaged Foods & Snacks,Box,245.0,285.0,14.04,15,2,365,5,MahaLaxmi FMCG Distributors
+PCK-021,Nescafe Classic Instant Coffee Jar 50g,Packaged Foods & Snacks,Jar,160.0,190.0,15.79,15,3,540,4,MahaLaxmi FMCG Distributors
+PCK-022,Bru Instant Coffee 100g,Packaged Foods & Snacks,Pouch,170.0,205.0,17.07,15,3,540,5,MahaLaxmi FMCG Distributors
+PCK-023,Bournvita Chocolate Health Drink 500g,Packaged Foods & Snacks,Jar,215.0,250.0,14.0,15,3,365,4,MahaLaxmi FMCG Distributors
+PCK-024,Horlicks Classic Malt 500g Refill,Packaged Foods & Snacks,Pouch,220.0,255.0,13.73,15,3,365,4,MahaLaxmi FMCG Distributors
+PCK-025,Kellogg's Corn Flakes Original 500g,Packaged Foods & Snacks,Box,175.0,210.0,16.67,12,3,270,3,MahaLaxmi FMCG Distributors
+PER-001,Surf Excel Easy Wash Detergent Powder 1kg,Personal & Home Care,Pouch,124.0,148.0,16.22,30,2,720,12,MahaLaxmi FMCG Distributors
+PER-002,Tide Plus Extra Power Detergent 1kg,Personal & Home Care,Pouch,112.0,134.0,16.42,30,2,720,11,MahaLaxmi FMCG Distributors
+PER-003,Ariel Complete Detergent Powder 1kg,Personal & Home Care,Pouch,178.0,215.0,17.21,15,3,720,5,MahaLaxmi FMCG Distributors
+PER-004,Rin Detergent Bar 250g,Personal & Home Care,Bar,16.0,20.0,20.0,50,1,720,20,MahaLaxmi FMCG Distributors
+PER-005,Vim Dishwash Bar 300g Tub,Personal & Home Care,Tub,32.0,40.0,20.0,40,2,720,15,MahaLaxmi FMCG Distributors
+PER-006,Vim Dishwash Liquid Gel Lemon 500ml,Personal & Home Care,Bottle,108.0,130.0,16.92,20,2,720,7,MahaLaxmi FMCG Distributors
+PER-007,Exo Dishwash Touch & Shine Round 500g,Personal & Home Care,Tub,44.0,55.0,20.0,25,2,720,8,MahaLaxmi FMCG Distributors
+PER-008,Dettol Original Bathing Soap 125g (Pack of 3),Personal & Home Care,Multipack,145.0,175.0,17.14,25,2,720,9,MahaLaxmi FMCG Distributors
+PER-009,Lifebuoy Total Germ Protection Soap 100g,Personal & Home Care,Bar,26.0,32.0,18.75,40,2,720,14,MahaLaxmi FMCG Distributors
+PER-010,Dove Cream Beauty Bathing Bar 100g,Personal & Home Care,Bar,52.0,65.0,20.0,20,2,720,6,MahaLaxmi FMCG Distributors
+PER-011,Lux Velvet Glow Soap 100g,Personal & Home Care,Bar,28.0,35.0,20.0,30,2,720,10,MahaLaxmi FMCG Distributors
+PER-012,Clinic Plus Strong & Long Shampoo 340ml,Personal & Home Care,Bottle,185.0,225.0,17.78,18,2,720,7,MahaLaxmi FMCG Distributors
+PER-013,Head & Shoulders Anti Dandruff Shampoo 180ml,Personal & Home Care,Bottle,160.0,195.0,17.95,15,3,720,5,MahaLaxmi FMCG Distributors
+PER-014,Clinic Plus Shampoo Sachet 6ml (Box of 96),Personal & Home Care,Box,80.0,96.0,16.67,25,2,720,18,MahaLaxmi FMCG Distributors
+PER-015,Colgate Strong Teeth Toothpaste 200g,Personal & Home Care,Tube,95.0,118.0,19.49,35,2,720,14,MahaLaxmi FMCG Distributors
+PER-016,Close Up Red Hot Gel Toothpaste 150g,Personal & Home Care,Tube,88.0,110.0,20.0,25,2,720,9,MahaLaxmi FMCG Distributors
+PER-017,Sensodyne Fresh Mint Toothpaste 75g,Personal & Home Care,Tube,125.0,155.0,19.35,15,3,720,4,MahaLaxmi FMCG Distributors
+PER-018,Oral-B Shiny Clean Toothbrush Medium,Personal & Home Care,Piece,20.0,25.0,20.0,40,2,1080,11,MahaLaxmi FMCG Distributors
+PER-019,Harpic Power Plus Toilet Cleaner 500ml,Personal & Home Care,Bottle,80.0,99.0,19.19,30,2,720,11,MahaLaxmi FMCG Distributors
+PER-020,Lizol Disinfectant Surface Cleaner Citrus 500ml,Personal & Home Care,Bottle,88.0,109.0,19.27,25,2,720,9,MahaLaxmi FMCG Distributors
+PER-021,Good Knight Gold Flash Machine + Refill,Personal & Home Care,Pack,78.0,99.0,21.21,20,3,720,5,MahaLaxmi FMCG Distributors
+PER-022,Good Knight Gold Flash Liquid Refill 45ml,Personal & Home Care,Bottle,62.0,78.0,20.51,30,2,720,10,MahaLaxmi FMCG Distributors
+PER-023,All Out Ultra Power+ Refill 45ml,Personal & Home Care,Bottle,60.0,75.0,20.0,25,2,720,8,MahaLaxmi FMCG Distributors
+PER-024,Godrej aer Pocket Bathroom Fragrance 10g,Personal & Home Care,Pack,44.0,55.0,20.0,20,3,720,6,MahaLaxmi FMCG Distributors
+PER-025,Stayfree Secure Cottony Regular Napkins (18s),Personal & Home Care,Pack,78.0,95.0,17.89,25,2,720,8,MahaLaxmi FMCG Distributors
+DAR-001,Amul Taaza Homogenised Toned Milk 500ml,Dairy & Fresh Essentials,Pouch,25.5,28.0,8.93,50,1,2,45,Amul & Mother Dairy City Depot
+DAR-002,Amul Gold Full Cream Fresh Milk 500ml,Dairy & Fresh Essentials,Pouch,31.0,34.0,8.82,50,1,2,38,Amul & Mother Dairy City Depot
+DAR-003,Mother Dairy Toned Milk 500ml,Dairy & Fresh Essentials,Pouch,25.5,28.0,8.93,30,1,2,22,Amul & Mother Dairy City Depot
+DAR-004,Amul Masti Dahi Pouch 400g,Dairy & Fresh Essentials,Pouch,30.0,34.0,11.76,25,1,5,18,Amul & Mother Dairy City Depot
+DAR-005,Mother Dairy Classic Curd 400g Tub,Dairy & Fresh Essentials,Tub,38.0,44.0,13.64,20,1,6,12,Amul & Mother Dairy City Depot
+DAR-006,Amul Pasteurised Butter 100g,Dairy & Fresh Essentials,Pack,50.0,56.0,10.71,30,1,90,16,Amul & Mother Dairy City Depot
+DAR-007,Amul Pasteurised Butter 500g,Dairy & Fresh Essentials,Pack,245.0,275.0,10.91,15,2,90,6,Amul & Mother Dairy City Depot
+DAR-008,Amul Malai Fresh Paneer 200g,Dairy & Fresh Essentials,Pack,82.0,92.0,10.87,20,1,15,14,Amul & Mother Dairy City Depot
+DAR-009,Mother Dairy Fresh Paneer 200g,Dairy & Fresh Essentials,Pack,80.0,90.0,11.11,15,1,15,10,Amul & Mother Dairy City Depot
+DAR-010,Amul Processed Cheese Slices 200g (10 Slices),Dairy & Fresh Essentials,Pack,125.0,145.0,13.79,15,2,180,5,Amul & Mother Dairy City Depot
+DAR-011,Harvest Gold White Bread 400g,Dairy & Fresh Essentials,Loaf,25.0,30.0,16.67,30,1,4,25,Amul & Mother Dairy City Depot
+DAR-012,Britannia 100% Whole Wheat Bread 400g,Dairy & Fresh Essentials,Loaf,42.0,50.0,16.0,20,1,4,12,Amul & Mother Dairy City Depot
+DAR-013,Farm Fresh White Eggs (Pack of 6),Dairy & Fresh Essentials,Tray,42.0,48.0,12.5,30,1,14,20,Amul & Mother Dairy City Depot
+DAR-014,Farm Fresh White Eggs (Pack of 12),Dairy & Fresh Essentials,Tray,80.0,92.0,13.04,25,1,14,15,Amul & Mother Dairy City Depot
+DAR-015,Amul Kool Flavoured Milk Elaichi 180ml,Dairy & Fresh Essentials,Can,22.0,25.0,12.0,25,2,180,8,Amul & Mother Dairy City Depot
