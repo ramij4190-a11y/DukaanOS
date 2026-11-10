@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 from dukaanos.src.dukaanos.backend.api import (
-    auth, products, inventory, sales, purchase_orders, intelligence, multimodal, sync, khata
+    auth, products, inventory, sales, purchase_orders, intelligence, multimodal, sync, khata, syndicate
 )
 from dukaanos.src.dukaanos.ai.router import ai_router
 
@@ -18,4 +18,5 @@ api_router.include_router(ai_router)
 api_router.include_router(multimodal.router)
 api_router.include_router(sync.router)
 api_router.include_router(khata.router)
+api_router.include_router(syndicate.router)
 

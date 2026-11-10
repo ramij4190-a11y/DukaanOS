@@ -201,3 +201,4 @@ In India, directly demanding money creates hostility and loses customers. Dukaan
 .venv\Scripts\python.exe -m pytest dukaanos/tests/ -v
 ```
 All **37 tests pass** across the complete 8-phase platform in under 35 seconds.
+
