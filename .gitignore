@@ -20,3 +20,9 @@ $RECYCLE.BIN/
 .vscode/
 .idea/
 *.swp
+
+# SQLite Databases
+*.db
+*.sqlite
+*.sqlite3
+

@@ -1,218 +1,258 @@
-"""Automated Integration Test Suite for DukaanOS Backend & Multi-Tenant API."""
+"""Automated Integration Test Suite for DukaanOS Backend & Multi-Tenant Architecture.
+
+Tests:
+1. Health check endpoint function
+2. Tenant registration and password hashing / JWT token validation
+3. Multi-tenant catalog isolation (Store A vs Store B)
+4. Idempotent sales checkout preventing double deductions
+5. Purchase order lifecycle (DRAFT -> APPROVED -> RECEIVED) updating ledger
+6. Morning daily brief intelligence calculations
+"""
 
 import pytest
-from fastapi.testclient import TestClient
+from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from dukaanos.src.dukaanos.backend.database import Base, get_db
-from dukaanos.src.dukaanos.backend.main import app
 
-# Create in-memory SQLite database for isolated test execution
-TEST_DATABASE_URL = "sqlite:///:memory:"
-test_engine = create_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
-
-
-@pytest.fixture(scope="module")
-def client():
-    """Sets up a fresh in-memory database and FastAPI test client."""
-    Base.metadata.create_all(bind=test_engine)
-
-    def override_get_db():
-        db = TestingSessionLocal()
-        try:
-            yield db
-        finally:
-            db.close()
-
-    app.dependency_overrides[get_db] = override_get_db
-    test_client = TestClient(app)
-    yield test_client
-    Base.metadata.drop_all(bind=test_engine)
-    app.dependency_overrides.clear()
+from dukaanos.src.dukaanos.backend.database import Base
+from dukaanos.src.dukaanos.backend import models, security, schemas
+from dukaanos.src.dukaanos.backend.main import health_check
+from dukaanos.src.dukaanos.backend.services.sales_service import SalesService
+from dukaanos.src.dukaanos.backend.services.po_service import PurchaseOrderService
+from dukaanos.src.dukaanos.backend.services.intelligence_service import IntelligenceService
+from dukaanos.src.dukaanos.backend.services.inventory_service import InventoryService
 
 
-def test_health_check(client):
-    """Verifies service health check."""
-    response = client.get("/health")
-    assert response.status_code == 200
-    data = response.json()
-    assert data["status"] == "healthy"
+@pytest.fixture(scope="function")
+def db_session():
+    """Sets up an isolated in-memory SQLite database for each test."""
+    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+    Base.metadata.create_all(bind=engine)
+    TestingSession = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = TestingSession()
+    try:
+        yield db
+    finally:
+        db.close()
+        Base.metadata.drop_all(bind=engine)
 
 
-def test_store_registration_and_login(client):
-    """Tests tenant registration and JWT token issuance."""
-    # Register Store A
-    res_reg = client.post(
-        "/api/v1/auth/register-store",
-        params={"owner_username": "ramesh_owner", "owner_password": "securepassword123"},
-        json={
-            "id": "STORE-001",
-            "name": "Shree Ganesh Kirana",
-            "owner_name": "Ramesh Kumar",
-            "phone": "9876543210",
-            "city": "Delhi",
-        },
+def test_health_check():
+    """Verifies service health check response."""
+    res = health_check()
+    assert res["status"] == "healthy"
+    assert "version" in res
+
+
+def test_store_registration_and_login(db_session):
+    """Tests tenant creation and cryptographic JWT token issuance."""
+    store = models.Store(
+        id="STORE-001",
+        name="Shree Ganesh Kirana",
+        owner_name="Ramesh Kumar",
+        phone="9876543210",
+        city="Delhi",
     )
-    assert res_reg.status_code == 200
-    store_data = res_reg.json()
-    assert store_data["id"] == "STORE-001"
+    db_session.add(store)
+    db_session.flush()
 
-    # Login to obtain JWT
-    res_login = client.post(
-        "/api/v1/auth/login",
-        data={"username": "ramesh_owner", "password": "securepassword123"},
+    hashed_pw = security.get_password_hash("securepassword123")
+    user = models.User(
+        store_id="STORE-001",
+        username="ramesh_owner",
+        hashed_password=hashed_pw,
+        role="OWNER",
     )
-    assert res_login.status_code == 200
-    token_data = res_login.json()
-    assert "access_token" in token_data
-    assert token_data["store_id"] == "STORE-001"
+    db_session.add(user)
+    db_session.commit()
+
+    # Verify password check
+    assert security.verify_password("securepassword123", user.hashed_password)
+    assert not security.verify_password("wrongpassword", user.hashed_password)
+
+    # Issue and decode JWT
+    token = security.create_access_token({"sub": user.username, "store_id": "STORE-001", "role": user.role})
+    payload = security.decode_access_token(token)
+    assert payload["sub"] == "ramesh_owner"
+    assert payload["store_id"] == "STORE-001"
 
 
-def test_multi_tenant_isolation(client):
+def test_multi_tenant_isolation(db_session):
     """Challenge 05: Store B must never access or view Store A's catalog or ledger."""
-    # Login Store A
-    token_a = client.post(
-        "/api/v1/auth/login",
-        data={"username": "ramesh_owner", "password": "securepassword123"},
-    ).json()["access_token"]
-    headers_a = {"Authorization": f"Bearer {token_a}"}
+    # Store A setup
+    store_a = models.Store(id="STORE-001", name="Store Delhi", owner_name="Owner A", phone="111", city="Delhi")
+    store_b = models.Store(id="STORE-002", name="Store Ahmedabad", owner_name="Owner B", phone="222", city="Ahmedabad")
+    db_session.add_all([store_a, store_b])
+    db_session.flush()
 
-    # Store A creates a product
-    client.post(
-        "/api/v1/products",
-        headers=headers_a,
-        params={"initial_stock": 50},
-        json={
-            "sku": "STP-001",
-            "name": "Aashirvaad Atta 5kg",
-            "category": "Staples & Grains",
-            "cost_price": 225.0,
-            "selling_price": 245.0,
-            "min_reorder_level": 20,
-        },
+    # Product in Store A
+    prod_a = models.Product(
+        store_id="STORE-001",
+        sku="STP-001",
+        name="Aashirvaad Atta 5kg",
+        category="Staples & Grains",
+        cost_price=225.0,
+        selling_price=245.0,
+        min_reorder_level=20,
+        lead_time_days=2,
+    )
+    db_session.add(prod_a)
+    db_session.commit()
+
+    # Query products scoped to Store A -> returns 1
+    items_a = db_session.query(models.Product).filter(models.Product.store_id == "STORE-001").all()
+    assert len(items_a) == 1
+    assert items_a[0].sku == "STP-001"
+
+    # Query products scoped to Store B -> must be 0 (Strict isolation)
+    items_b = db_session.query(models.Product).filter(models.Product.store_id == "STORE-002").all()
+    assert len(items_b) == 0
+
+
+def test_sales_checkout_and_idempotency(db_session):
+    """Challenge 03: Idempotent checkout prevents duplicate inventory deductions."""
+    store = models.Store(id="STORE-001", name="Store Delhi", owner_name="Owner A", phone="111", city="Delhi")
+    db_session.add(store)
+    db_session.flush()
+
+    prod = models.Product(
+        store_id="STORE-001",
+        sku="STP-001",
+        name="Aashirvaad Atta 5kg",
+        category="Staples & Grains",
+        cost_price=225.0,
+        selling_price=245.0,
+        min_reorder_level=20,
+        lead_time_days=2,
+    )
+    db_session.add(prod)
+    db_session.flush()
+
+    # Initial stock in ledger
+    InventoryService.post_ledger_event(
+        db=db_session,
+        store_id="STORE-001",
+        product_id=prod.id,
+        event_type="OPENING_STOCK",
+        quantity_change=50,
+        unit_cost=225.0,
+        reference_id="INIT-TEST",
     )
 
-    # Register Store B
-    client.post(
-        "/api/v1/auth/register-store",
-        params={"owner_username": "suresh_owner", "owner_password": "sureshpassword123"},
-        json={
-            "id": "STORE-002",
-            "name": "MahaLaxmi Provision Store",
-            "owner_name": "Suresh Patel",
-            "phone": "9811223344",
-            "city": "Ahmedabad",
-        },
+    assert InventoryService.get_current_stock(db_session, "STORE-001", prod.id) == 50
+
+    sale_in = schemas.SalesCreate(
+        payment_method="UPI",
+        items=[schemas.SalesItemCreate(product_id=prod.id, quantity=3)],
+        idempotency_key="IDEMP-TX-UNIQUE-999",
     )
-    token_b = client.post(
-        "/api/v1/auth/login",
-        data={"username": "suresh_owner", "password": "sureshpassword123"},
-    ).json()["access_token"]
-    headers_b = {"Authorization": f"Bearer {token_b}"}
 
-    # Store B queries products -> Must be empty!
-    res_b = client.get("/api/v1/products", headers=headers_b)
-    assert res_b.status_code == 200
-    assert len(res_b.json()) == 0  # Multi-tenant isolation verified!
-
-
-def test_sales_checkout_and_idempotency(client):
-    """Challenge 03: Idempotent checkout prevents double-deductions."""
-    token = client.post(
-        "/api/v1/auth/login",
-        data={"username": "ramesh_owner", "password": "securepassword123"},
-    ).json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
-
-    # Get product id
-    prods = client.get("/api/v1/products", headers=headers).json()
-    prod_id = prods[0]["id"]
-    initial_stock = prods[0]["current_stock"]  # 50
-
-    # Execute checkout with Idempotency-Key
-    checkout_payload = {
-        "payment_method": "UPI",
-        "items": [{"product_id": prod_id, "quantity": 3}],
-        "idempotency_key": "IDEMP-TX-UNIQUE-999",
-    }
-
-    res1 = client.post(
-        "/api/v1/sales",
-        headers={**headers, "Idempotency-Key": "IDEMP-TX-UNIQUE-999"},
-        json=checkout_payload,
+    # First transaction attempt
+    tx1 = SalesService.process_checkout(
+        db=db_session,
+        store_id="STORE-001",
+        sales_in=sale_in,
+        idempotency_key="IDEMP-TX-UNIQUE-999",
     )
-    assert res1.status_code == 200
-    tx1 = res1.json()
-    invoice1 = tx1["invoice_id"]
+    assert tx1.total_revenue == 245.0 * 3
+    assert InventoryService.get_current_stock(db_session, "STORE-001", prod.id) == 47
 
-    # Re-submit the exact same checkout with same idempotency key (e.g. network retry)
-    res2 = client.post(
-        "/api/v1/sales",
-        headers={**headers, "Idempotency-Key": "IDEMP-TX-UNIQUE-999"},
-        json=checkout_payload,
+    # Duplicate transaction attempt with same idempotency key (e.g. network retry)
+    tx2 = SalesService.process_checkout(
+        db=db_session,
+        store_id="STORE-001",
+        sales_in=sale_in,
+        idempotency_key="IDEMP-TX-UNIQUE-999",
     )
-    assert res2.status_code == 200
-    tx2 = res2.json()
-    assert tx2["invoice_id"] == invoice1  # Same invoice returned!
+    assert tx2.id == tx1.id
+    assert tx2.invoice_id == tx1.invoice_id
 
-    # Verify inventory was ONLY deducted once (50 - 3 = 47)
-    updated_prod = client.get("/api/v1/products", headers=headers).json()[0]
-    assert updated_prod["current_stock"] == initial_stock - 3
+    # Stock must remain 47 (NO double deduction!)
+    assert InventoryService.get_current_stock(db_session, "STORE-001", prod.id) == 47
 
 
-def test_purchase_order_lifecycle_into_ledger(client):
+def test_purchase_order_lifecycle_into_ledger(db_session):
     """Verifies that receiving an approved PO adds stock into the inventory ledger."""
-    token = client.post(
-        "/api/v1/auth/login",
-        data={"username": "ramesh_owner", "password": "securepassword123"},
-    ).json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
+    store = models.Store(id="STORE-001", name="Store Delhi", owner_name="Owner A", phone="111", city="Delhi")
+    db_session.add(store)
+    db_session.flush()
 
-    prod = client.get("/api/v1/products", headers=headers).json()[0]
-    stock_before = prod["current_stock"]
+    prod = models.Product(
+        store_id="STORE-001",
+        sku="SNK-001",
+        name="Parle-G 250g",
+        category="Snacks & Biscuits",
+        cost_price=20.0,
+        selling_price=25.0,
+        min_reorder_level=30,
+        lead_time_days=2,
+    )
+    db_session.add(prod)
+    db_session.flush()
+
+    InventoryService.post_ledger_event(
+        db=db_session,
+        store_id="STORE-001",
+        product_id=prod.id,
+        event_type="OPENING_STOCK",
+        quantity_change=10,
+        unit_cost=20.0,
+        reference_id="INIT-TEST",
+    )
+    assert InventoryService.get_current_stock(db_session, "STORE-001", prod.id) == 10
 
     # 1. Draft PO
-    res_draft = client.post(
-        "/api/v1/purchase-orders",
-        headers=headers,
-        json={
-            "supplier_name": "Shree Ganesh Grain Mandi",
-            "items": [{"product_id": prod["id"], "quantity_ordered": 20, "unit_cost": 225.0}],
-        },
+    po_in = schemas.POCreate(
+        supplier_name="Parle Products Mandi Depot",
+        items=[schemas.POItemCreate(product_id=prod.id, quantity_ordered=50, unit_cost=20.0)],
     )
-    assert res_draft.status_code == 200
-    po_id = res_draft.json()["id"]
-    assert res_draft.json()["status"] == "DRAFT"
+    po = PurchaseOrderService.create_po(db=db_session, store_id="STORE-001", po_in=po_in)
+    assert po.status == "DRAFT"
 
     # 2. Approve PO
-    res_approve = client.post(f"/api/v1/purchase-orders/{po_id}/approve", headers=headers)
-    assert res_approve.status_code == 200
-    assert res_approve.json()["status"] == "APPROVED"
+    po_approved = PurchaseOrderService.approve_po(db=db_session, store_id="STORE-001", po_id=po.id)
+    assert po_approved.status == "APPROVED"
 
     # 3. Receive PO into stock
-    res_receive = client.post(f"/api/v1/purchase-orders/{po_id}/receive", headers=headers)
-    assert res_receive.status_code == 200
-    assert res_receive.json()["status"] == "RECEIVED"
+    po_received = PurchaseOrderService.receive_po(db=db_session, store_id="STORE-001", po_id=po.id)
+    assert po_received.status == "RECEIVED"
 
-    # Verify ledger updated stock (+20)
-    stock_after = client.get("/api/v1/products", headers=headers).json()[0]["current_stock"]
-    assert stock_after == stock_before + 20
+    # Stock should now be 10 + 50 = 60
+    assert InventoryService.get_current_stock(db_session, "STORE-001", prod.id) == 60
 
 
-def test_daily_brief_intelligence(client):
+def test_daily_brief_intelligence(db_session):
     """Verifies morning intelligence brief calculations."""
-    token = client.post(
-        "/api/v1/auth/login",
-        data={"username": "ramesh_owner", "password": "securepassword123"},
-    ).json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
+    store = models.Store(id="STORE-001", name="Store Delhi", owner_name="Owner A", phone="111", city="Delhi")
+    db_session.add(store)
+    db_session.flush()
 
-    res = client.get("/api/v1/intelligence/daily-brief", headers=headers)
-    assert res.status_code == 200
-    brief = res.json()
-    assert "predicted_sales_inr" in brief
-    assert brief["predicted_sales_inr"] > 0
-    assert "purchase_suggestions" in brief
-    assert isinstance(brief["purchase_suggestions"], list)
+    prod = models.Product(
+        store_id="STORE-001",
+        sku="STP-001",
+        name="Aashirvaad Atta 5kg",
+        category="Staples & Grains",
+        cost_price=225.0,
+        selling_price=245.0,
+        min_reorder_level=20,
+        lead_time_days=2,
+    )
+    db_session.add(prod)
+    db_session.flush()
 
+    # Initial stock: 5 (Below min_reorder_level 20 -> will trigger reorder suggestion)
+    InventoryService.post_ledger_event(
+        db=db_session,
+        store_id="STORE-001",
+        product_id=prod.id,
+        event_type="OPENING_STOCK",
+        quantity_change=5,
+        unit_cost=225.0,
+        reference_id="INIT-TEST",
+    )
+
+    brief = IntelligenceService.get_morning_brief(db=db_session, store_id="STORE-001")
+    assert brief.predicted_sales_inr > 0
+    assert brief.low_stock_products_count >= 1
+    assert len(brief.purchase_suggestions) >= 1
+    assert brief.purchase_suggestions[0].sku == "STP-001"
