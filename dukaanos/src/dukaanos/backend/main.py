@@ -1,6 +1,9 @@
 """DukaanOS FastAPI Application Entrypoint."""
 
+import os
+from pathlib import Path
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from dukaanos.src.dukaanos.backend.config import settings
 from dukaanos.src.dukaanos.backend.database import engine, Base
@@ -8,6 +11,8 @@ from dukaanos.src.dukaanos.backend.api.router import api_router
 
 # Initialize all database tables on startup
 Base.metadata.create_all(bind=engine)
+
+FRONTEND_HTML_PATH = Path(__file__).resolve().parent.parent / "frontend" / "index.html"
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -39,12 +44,11 @@ def health_check():
     }
 
 
-@app.get("/", tags=["Root"])
-def root():
-    """API root redirect information."""
-    return {
-        "message": "Welcome to DukaanOS Retail Intelligence Platform API",
-        "docs": "/docs",
-        "health": "/health",
-    }
-
+@app.get("/", response_class=HTMLResponse, tags=["Frontend"])
+@app.get("/dashboard", response_class=HTMLResponse, tags=["Frontend"])
+def serve_dashboard():
+    """Serves the interactive DukaanOS Shopkeeper UI."""
+    if FRONTEND_HTML_PATH.exists():
+        with open(FRONTEND_HTML_PATH, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read(), status_code=200)
+    return HTMLResponse(content="<h1>DukaanOS API Online</h1><p>Visit /docs for OpenAPI specifications.</p>", status_code=200)

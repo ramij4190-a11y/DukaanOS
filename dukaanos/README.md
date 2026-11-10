@@ -191,11 +191,19 @@ python -m pytest dukaanos/tests -v
   - Commercial unit economics: **37.3x ROI** for a standard ₹30 Lakh/mo grocery store on the ₹699/mo Growth plan.
   - Visual pilot impact chart generated: [`reports/charts/pilot_business_impact.png`](file:///d:/Ai/dukaanos/reports/charts/pilot_business_impact.png).
 
+- [x] **Phase 7: Multimodal Ingestion, Omnichannel WhatsApp & Interactive Store UI**
+  - Blueprint: [`docs/phase-7-multimodal-ingestion-and-omnichannel.md`](file:///d:/Ai/dukaanos/docs/phase-7-multimodal-ingestion-and-omnichannel.md)
+  - Wholesale paper invoice parser (Mandi Parchi OCR simulation) with fuzzy string matching against 100-SKU catalog.
+  - Confidence scoring and thresholding ($\ge 0.85$ auto-mapped, $<0.85$ flagged for shopkeeper review).
+  - Atomic invoice confirmation committing incoming inventory directly into the event-sourced ledger (`PURCHASE` event).
+  - Omnichannel WhatsApp Mandi Bridge (`wa.me`) with localized order templates in Hindi (हिंदी), Hinglish, and English.
+  - Interactive single-page web dashboard and POS billing screen served live at `http://localhost:8000/` and `/dashboard`.
+
 ---
 
 ## 9. Complete Verification & Test Suite
 
-The entire platform is covered by 28 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, and startup business metrics:
+The entire platform is covered by 34 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, multimodal ingestion, and startup business metrics:
 
 ```bash
 # Run complete platform regression suite
@@ -208,7 +216,8 @@ dukaanos/tests/test_backend.py (6 tests)     --> Health, multi-tenant isolation,
 dukaanos/tests/test_ml.py (4 tests)          --> Features, zero lookahead bias, WAPE, ROP math
 dukaanos/tests/test_ai_agent.py (5 tests)    --> Multi-lingual intent, deterministic tools, guardrails, actions
 dukaanos/tests/test_mlops.py (5 tests)       --> Model registry, PSI drift monitoring, telemetry
+dukaanos/tests/test_multimodal.py (6 tests)  --> OCR fuzzy matcher, confidence thresholds, WhatsApp, UI serving
 dukaanos/tests/test_startup.py (3 tests)     --> Pilot cohort summary, KPI improvements, ROI unit economics
-============================== 28 passed in 7.44s ==============================
+============================== 34 passed in 10.87s =============================
 ```
 
