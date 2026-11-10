@@ -24,3 +24,4 @@
   - Packaged Snacks & Foods: 14% – 22%
   - Personal & Home Care: 18% – 28%
 - **Consequence:** Retail metrics and recommendations reflect the actual economic pressures and cash-flow trade-offs of Indian shopkeepers.
+
