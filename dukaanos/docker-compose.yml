@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: dukaanos/Dockerfile
+    container_name: dukaanos_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://dukaan_user:dukaan_password@db:5432/dukaanos_db
+      - SECRET_KEY=dukaanos_production_jwt_secret_key_kirana_2026
+      - REDIS_URL=redis://redis:6379/0
+      - DEBUG=false
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - dukaan_net
+
+  db:
+    image: postgres:16-alpine
+    container_name: dukaanos_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dukaan_user
+      POSTGRES_PASSWORD: dukaan_password
+      POSTGRES_DB: dukaanos_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dukaan_user -d dukaanos_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dukaan_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: dukaanos_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dukaan_net
+
+networks:
+  dukaan_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+

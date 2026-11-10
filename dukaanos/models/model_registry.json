@@ -1,0 +1,37 @@
+{
+  "models": [
+    {
+      "model_name": "dukaanos_lightgbm_demand_forecaster",
+      "version": "1.0.0",
+      "stage": "PRODUCTION",
+      "description": "Production LightGBM model trained on 365-day Indian Kirana operations.",
+      "metrics": {
+        "WAPE_pct": 26.07,
+        "MAE": 3.08,
+        "RMSE": 4.15,
+        "Bias_pct": -0.05
+      },
+      "feature_names": [
+        "day_of_week",
+        "day_of_month",
+        "month",
+        "is_weekend",
+        "is_salary_week",
+        "is_festival",
+        "lag_1",
+        "lag_7",
+        "lag_14",
+        "lag_21",
+        "rolling_mean_7",
+        "rolling_std_7",
+        "rolling_mean_14",
+        "rolling_mean_30",
+        "cost_price",
+        "selling_price",
+        "category_daily_mean"
+      ],
+      "artifact_path": "D:\\Ai\\dukaanos\\models\\artifacts\\dukaanos_lightgbm_demand_forecaster_v1.0.0.joblib",
+      "created_at": "2026-11-10T06:53:38.040861"
+    }
+  ]
+}
