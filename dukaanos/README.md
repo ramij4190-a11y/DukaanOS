@@ -4,6 +4,9 @@
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Platform Status](https://img.shields.io/badge/Tests-34%20Passed-brightgreen.svg)](file:///d:/Ai/dukaanos/tests/)
+
+> 📖 **Comprehensive Master Reference:** See [`docs/full-platform-capabilities-and-tech-stack.md`](file:///d:/Ai/dukaanos/docs/full-platform-capabilities-and-tech-stack.md) for full system capabilities, algorithmic formulations, ₹0 open-source technology stack, and phase-by-phase implementation details.
 
 ---
 

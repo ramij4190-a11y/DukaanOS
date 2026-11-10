@@ -176,3 +176,4 @@ def test_frontend_html_serving():
     res = serve_dashboard()
     assert res.status_code == 200
     assert "DukaanOS" in res.body.decode("utf-8")
+

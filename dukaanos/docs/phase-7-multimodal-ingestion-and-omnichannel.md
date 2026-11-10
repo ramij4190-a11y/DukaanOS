@@ -112,3 +112,4 @@ Upon owner approval, stock is automatically committed to the **immutable invento
 3. `test_invoice_ledger_commit`: Verifies that approving an invoice posts atomic `PURCHASE` ledger movements and increments stock.
 4. `test_whatsapp_po_formatter`: Verifies localized WhatsApp message serialization across Hindi, Hinglish, and English.
 5. `test_frontend_routes`: Verifies that the dashboard and static assets are served seamlessly with HTTP 200.
+

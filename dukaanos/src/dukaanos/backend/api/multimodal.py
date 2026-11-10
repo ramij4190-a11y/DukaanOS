@@ -74,3 +74,4 @@ def simulate_whatsapp_webhook(
 ):
     """Simulates inbound WhatsApp webhook message parsing."""
     return WhatsAppBridgeService.parse_inbound_whatsapp_message(sender_phone=sender, message_body=message)
+

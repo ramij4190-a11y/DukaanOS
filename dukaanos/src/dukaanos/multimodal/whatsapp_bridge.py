@@ -111,3 +111,4 @@ class WhatsAppBridgeService:
             "detected_intent": intent,
             "status": "PROCESSED",
         }
+
