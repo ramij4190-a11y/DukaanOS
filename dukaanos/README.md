@@ -134,9 +134,28 @@ python -m pytest dukaanos/tests -v
 
 ---
 
-## 8. What's Next in Month 2: ML Engine (Phase 2)
-In the upcoming phase, we will utilize this clean historical dataset to build:
-1. **Demand Forecasting Baseline:** 7-day and 14-day rolling demand predictions.
-2. **Machine Learning Models:** Comparing Ridge Regression, Random Forest, and LightGBM using Rolling-Origin Backtesting (WAPE & MAE metrics).
-3. **Automated Purchase Order Recommendations:** Converting forecasted demand + lead time into suggested reorders.
+## 8. Phase Progress & Engineering Milestones
+
+### Completed Milestones:
+- [x] **Phase 1: Retail Data Foundations & Project 001**
+  - Blueprint: [`docs/phase-1-data-foundations.md`](file:///d:/Ai/dukaanos/docs/phase-1-data-foundations.md)
+  - 100 SKUs, 5 categories, 365-day realistic Indian Kirana simulation.
+  - Automated ETL data cleaner with deduplication, null imputation, and stockout isolation.
+  - Event-sourced immutable inventory ledger (100% mathematical conservation across 40,930 events).
+  - Business intelligence executive scorecard (₹3.90 Cr turnover, ₹52.20 Lakh gross profit, 13.4% margin).
+
+- [x] **Phase 2: Machine Learning & Retail Intelligence Engine**
+  - Blueprint: [`docs/phase-2-machine-learning-engine.md`](file:///d:/Ai/dukaanos/docs/phase-2-machine-learning-engine.md)
+  - Time-series rolling-origin cross-validation (walk-forward backtesting across 3 holdout folds).
+  - Feature engineering (lags, rolling statistics, calendar cycles, salary weeks, festivals) with zero lookahead bias.
+  - Forecasting benchmark: LightGBM achieved top performance (26.07% WAPE vs 28.49% Naive Moving Average).
+  - Statistical Z-score and Isolation Forest anomaly detection (523 velocity spikes/drops detected).
+  - Market basket association analysis (1,687 cross-selling affinity pairs, including Maggi + Ketchup with 7.53x Lift).
+  - Statistical dynamic reorder point (ROP) and safety stock engine generating prioritized purchase orders.
+
+### Upcoming Architecture Blueprints:
+- [ ] **Phase 3:** [`docs/phase-3-backend-and-data-engineering.md`](file:///d:/Ai/dukaanos/docs/phase-3-backend-and-data-engineering.md) — FastAPI, PostgreSQL multi-tenant schema, Alembic migrations, Redis caching, and async endpoints.
+- [ ] **Phase 4:** [`docs/phase-4-llm-and-ai-agents.md`](file:///d:/Ai/dukaanos/docs/phase-4-llm-and-ai-agents.md) — Safe function-calling agent, Hinglish query parsing, human-in-the-loop approvals.
+- [ ] **Phase 5:** [`docs/phase-5-production-mlops.md`](file:///d:/Ai/dukaanos/docs/phase-5-production-mlops.md) — Docker containerization, MLflow model tracking, drift monitoring, and CI/CD pipelines.
+- [ ] **Phase 6:** [`docs/phase-6-field-deployment-and-startup.md`](file:///d:/Ai/dukaanos/docs/phase-6-field-deployment-and-startup.md) — Storekeeper pilot onboarding, ROI measurement, willingness-to-pay validation.
 
