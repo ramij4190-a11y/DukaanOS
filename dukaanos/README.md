@@ -153,9 +153,23 @@ python -m pytest dukaanos/tests -v
   - Market basket association analysis (1,687 cross-selling affinity pairs, including Maggi + Ketchup with 7.53x Lift).
   - Statistical dynamic reorder point (ROP) and safety stock engine generating prioritized purchase orders.
 
+- [x] **Phase 3: Backend & Data Engineering**
+  - Blueprint: [`docs/phase-3-backend-and-data-engineering.md`](file:///d:/Ai/dukaanos/docs/phase-3-backend-and-data-engineering.md)
+  - Production FastAPI REST service with multi-tenant SQLAlchemy 2.0 schema (`Store`, `User`, `Product`, `InventoryLedger`, `SalesTransaction`, `PurchaseOrder`).
+  - Strict tenant isolation enforced at the JWT dependency layer.
+  - Idempotency protection (`Idempotency-Key` header) guaranteeing zero double-deductions or duplicate billing.
+  - Atomic inventory ledger mutations and stock reconciliation endpoints.
+  - Morning store briefing endpoint (`/api/v1/intelligence/daily-brief`).
+
+- [x] **Phase 4: LLM Engineering & Autonomous Business Agents**
+  - Blueprint: [`docs/phase-4-llm-and-ai-agents.md`](file:///d:/Ai/dukaanos/docs/phase-4-llm-and-ai-agents.md)
+  - Forward Deployed Engineer (FDE) agent workflow supporting multi-lingual queries (English, Hindi, Hinglish, Bengali).
+  - Deterministic tool orchestration (`get_inventory_status`, `get_low_stock_products`, `get_product_forecast`, `calculate_reorder_quantities`, `draft_purchase_order_proposal`).
+  - Zero hallucination guarantee: agent never invents quantities or writes directly to the database.
+  - Safety guardrails (budget caps, quantity ceilings, human approval gates).
+  - Two-phase execution: agent prepares structured draft proposals, executing only upon explicit shopkeeper confirmation.
+
 ### Upcoming Architecture Blueprints:
-- [ ] **Phase 3:** [`docs/phase-3-backend-and-data-engineering.md`](file:///d:/Ai/dukaanos/docs/phase-3-backend-and-data-engineering.md) — FastAPI, PostgreSQL multi-tenant schema, Alembic migrations, Redis caching, and async endpoints.
-- [ ] **Phase 4:** [`docs/phase-4-llm-and-ai-agents.md`](file:///d:/Ai/dukaanos/docs/phase-4-llm-and-ai-agents.md) — Safe function-calling agent, Hinglish query parsing, human-in-the-loop approvals.
 - [ ] **Phase 5:** [`docs/phase-5-production-mlops.md`](file:///d:/Ai/dukaanos/docs/phase-5-production-mlops.md) — Docker containerization, MLflow model tracking, drift monitoring, and CI/CD pipelines.
 - [ ] **Phase 6:** [`docs/phase-6-field-deployment-and-startup.md`](file:///d:/Ai/dukaanos/docs/phase-6-field-deployment-and-startup.md) — Storekeeper pilot onboarding, ROI measurement, willingness-to-pay validation.
 
