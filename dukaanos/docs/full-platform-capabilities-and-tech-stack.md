@@ -277,3 +277,4 @@ Open **`http://localhost:8000/`** in your browser to interact with the Morning B
 .venv\Scripts\python.exe dukaanos/run_phase_6.py     # Phase 6: Field pilot deployment & ROI
 .venv\Scripts\python.exe dukaanos/run_phase_7.py     # Phase 7: Multimodal invoice OCR & WhatsApp
 ```
+

@@ -50,10 +50,10 @@ class CreditService:
         raw_score = (0.50 * utilization) + (0.45 * overdue_factor) - repayment_bonus
         score = max(0.0, min(round(raw_score, 3), 1.0))
 
-        if score < 0.40:
+        if score < 0.35:
             tier = "LOW"
             action = "Approve additional credit. Customer has healthy repayment record."
-        elif score < 0.75:
+        elif score < 0.70:
             tier = "MODERATE"
             action = "Send gentle WhatsApp payment reminder. Cap additional credit."
         else:
@@ -124,3 +124,4 @@ class CreditService:
             "raw_message": msg,
             "whatsapp_url": wa_url,
         }
+

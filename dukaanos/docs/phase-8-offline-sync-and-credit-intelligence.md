@@ -89,3 +89,4 @@ Phase 8 elevates DukaanOS with two mission-critical enterprise systems:
 3. `test_khata_credit_ledger_movement`: Verifies debiting customer credit on sale and crediting on repayment.
 4. `test_credit_risk_scoring`: Confirms risk classification across low, medium, and high credit profiles.
 5. `test_upi_recovery_message_generation`: Verifies polite localized WhatsApp message formatting with valid UPI payment deep links.
+

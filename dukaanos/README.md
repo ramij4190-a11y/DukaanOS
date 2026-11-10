@@ -202,11 +202,20 @@ python -m pytest dukaanos/tests -v
   - Omnichannel WhatsApp Mandi Bridge (`wa.me`) with localized order templates in Hindi (हिंदी), Hinglish, and English.
   - Interactive single-page web dashboard and POS billing screen served live at `http://localhost:8000/` and `/dashboard`.
 
+- [x] **Phase 8: Offline-First Edge Sync & AI Khata (Credit Risk) Intelligence**
+  - Blueprint: [`docs/phase-8-offline-sync-and-credit-intelligence.md`](file:///d:/Ai/dukaanos/docs/phase-8-offline-sync-and-credit-intelligence.md)
+  - Visual Architecture Guide: [`docs/phase-8-visual-guide.md`](file:///d:/Ai/dukaanos/docs/phase-8-visual-guide.md)
+  - Offline-first local transaction buffer allowing continuous POS billing during 4G network dropouts.
+  - Idempotent batch replay reconciliation (`/api/v1/sync/batch`) ensuring zero double-charging or ledger drift upon reconnection.
+  - AI Khata customer credit ledger tracking informal Udhar balances, credit limits, and days-past-due.
+  - Dynamic Credit Default Risk Scoring (LOW, MODERATE, HIGH) based on credit utilization and repayment velocity.
+  - Culturally respectful WhatsApp payment reminders with embedded UPI QR payment links (`upi://pay?pa=...`) for 1-tap settlement.
+
 ---
 
 ## 9. Complete Verification & Test Suite
 
-The entire platform is covered by 34 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, multimodal ingestion, and startup business metrics:
+The entire platform is covered by 37 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, multimodal ingestion, offline edge sync, credit risk, and startup business metrics:
 
 ```bash
 # Run complete platform regression suite
@@ -220,7 +229,8 @@ dukaanos/tests/test_ml.py (4 tests)          --> Features, zero lookahead bias, 
 dukaanos/tests/test_ai_agent.py (5 tests)    --> Multi-lingual intent, deterministic tools, guardrails, actions
 dukaanos/tests/test_mlops.py (5 tests)       --> Model registry, PSI drift monitoring, telemetry
 dukaanos/tests/test_multimodal.py (6 tests)  --> OCR fuzzy matcher, confidence thresholds, WhatsApp, UI serving
+dukaanos/tests/test_phase_8.py (3 tests)     --> Offline batch sync, idempotency, credit risk, UPI reminders
 dukaanos/tests/test_startup.py (3 tests)     --> Pilot cohort summary, KPI improvements, ROI unit economics
-============================== 34 passed in 10.87s =============================
+============================== 37 passed in 33.05s =============================
 ```
 

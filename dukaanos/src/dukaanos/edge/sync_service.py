@@ -125,3 +125,4 @@ class EdgeSyncService:
             failed_count=failed,
             results=results,
         )
+
