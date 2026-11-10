@@ -1,0 +1,16 @@
+"""Main API Router aggregating all sub-domain endpoints."""
+
+from fastapi import APIRouter
+from dukaanos.src.dukaanos.backend.api import (
+    auth, products, inventory, sales, purchase_orders, intelligence
+)
+
+api_router = APIRouter(prefix="/api/v1")
+
+api_router.include_router(auth.router)
+api_router.include_router(products.router)
+api_router.include_router(inventory.router)
+api_router.include_router(sales.router)
+api_router.include_router(purchase_orders.router)
+api_router.include_router(intelligence.router)
+
