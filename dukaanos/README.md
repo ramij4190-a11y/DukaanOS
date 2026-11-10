@@ -139,3 +139,4 @@ In the upcoming phase, we will utilize this clean historical dataset to build:
 1. **Demand Forecasting Baseline:** 7-day and 14-day rolling demand predictions.
 2. **Machine Learning Models:** Comparing Ridge Regression, Random Forest, and LightGBM using Rolling-Origin Backtesting (WAPE & MAE metrics).
 3. **Automated Purchase Order Recommendations:** Converting forecasted demand + lead time into suggested reorders.
+

@@ -27,3 +27,4 @@
 ## 3. The Startup Case Study Portfolio Artifact
 Publishing: *"Building a Demand Forecasting & Inventory Operating System for Small Indian Retailers: From Messy Counter Books to Production ML"*.
 Demonstrating real customer interviews, quantifiable business ROI, and robust software engineering.
+

@@ -117,3 +117,4 @@ $$\text{Lift}(A \to B) = \frac{P(A \cap B)}{P(A) \cdot P(B)}$$
 5. **`inventory_opt.py`**: Reorder point (ROP) & safety stock engine converting forecasts into suggested purchase orders.
 6. **`tests/test_ml.py`**: Automated tests verifying feature dimensions, no lookahead bias, and positive ROP outputs.
 7. **`run_phase_2.py`**: One-click benchmark runner generating model comparison tables and charts.
+

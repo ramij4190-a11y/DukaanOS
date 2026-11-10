@@ -66,3 +66,4 @@
 ### Challenge 05: Multi-Tenant Isolation
 - Ensuring Store A can never query or mutate Store B's data.
 - Tenant context extracted from JWT claims and enforced automatically via PostgreSQL Row-Level Security (RLS) or SQLAlchemy scoped session filters.
+

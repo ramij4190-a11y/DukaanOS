@@ -283,6 +283,7 @@ def generate_retail_dataset(
                         po["received_date"] = day_str
 
         # Step B: Daily sales for each product
+        daily_items_sold = []
         for sku, state in inventory_state.items():
             spec = state["spec"]
             cat = spec["category"]
@@ -320,41 +321,20 @@ def generate_retail_dataset(
                     "quantity_change": -actual_sold,
                     "running_balance": state["current_stock"],
                     "unit_cost": spec["cost_price"],
-                    "reference_id": f"INV-{invoice_counter}",
+                    "reference_id": f"DAILY-{day_str}",
                     "notes": "Store counter sale",
                 })
                 tx_counter += 1
 
-                # Break down into customer purchase transactions
-                # Small retailers sell in baskets of 1 to 3 items per customer
-                remaining_to_record = actual_sold
-                while remaining_to_record > 0:
-                    basket_qty = min(remaining_to_record, random.choices([1, 2, 3, 5], weights=[0.6, 0.25, 0.1, 0.05])[0])
-                    remaining_to_record -= basket_qty
-
-                    # Realistic payment methods in Indian retail: UPI (50%), Cash (40%), Khata/Credit (10%)
-                    payment = random.choices(["UPI", "CASH", "KHATA_CREDIT"], weights=[0.50, 0.40, 0.10])[0]
-
-                    sales_records.append({
-                        "sales_id": f"SLS-{len(sales_records)+1:08d}",
-                        "date": day_str,
-                        "invoice_id": f"INV-{invoice_counter}",
-                        "product_id": sku,
-                        "product_name": spec["product_name"],
-                        "category": spec["category"],
-                        "quantity": basket_qty,
-                        "unit_price": spec["selling_price"],
-                        "cost_price": spec["cost_price"],
-                        "total_revenue": round(basket_qty * spec["selling_price"], 2),
-                        "total_cost": round(basket_qty * spec["cost_price"], 2),
-                        "gross_profit": round(basket_qty * (spec["selling_price"] - spec["cost_price"]), 2),
-                        "payment_method": payment,
-                        "lost_sales_unfulfilled": 0,
-                    })
-                    invoice_counter += 1
+                # Queue individual product units into daily sales pool
+                rem = actual_sold
+                while rem > 0:
+                    unit_chunk = min(rem, random.choices([1, 2, 3], weights=[0.7, 0.2, 0.1])[0])
+                    daily_items_sold.append((sku, spec, unit_chunk))
+                    rem -= unit_chunk
 
             if lost_sales > 0:
-                # Log a stockout marker in sales data for demand modeling research
+                # Log stockout marker
                 sales_records.append({
                     "sales_id": f"SLS-{len(sales_records)+1:08d}",
                     "date": day_str,
@@ -371,6 +351,64 @@ def generate_retail_dataset(
                     "payment_method": "UNFULFILLED",
                     "lost_sales_unfulfilled": lost_sales,
                 })
+                invoice_counter += 1
+
+        # Natural cross-selling affinities in Kirana shopping baskets
+        affinities = {
+            "PCK-018": ["STP-013", "STP-014"],  # Red Label Tea + Sugar
+            "PCK-019": ["STP-013", "DAR-001"],  # Tata Tea Gold + Sugar or Milk
+            "PCK-001": ["PCK-016", "PCK-017"],  # Maggi + Ketchup
+            "DAR-011": ["DAR-006", "DAR-007"],  # White Bread + Amul Butter
+            "STP-001": ["OIL-001", "OIL-003"],  # Aashirvaad Atta + Mustard/Sunflower Oil
+            "PER-001": ["PER-004", "PER-005"],  # Surf Excel + Rin / Vim
+        }
+
+        # Pack daily items into realistic multi-product customer baskets
+        random.shuffle(daily_items_sold)
+        idx = 0
+        while idx < len(daily_items_sold):
+            basket_invoice = f"INV-{invoice_counter}"
+            invoice_counter += 1
+            basket_payment = random.choices(["UPI", "CASH", "KHATA_CREDIT"], weights=[0.50, 0.40, 0.10])[0]
+
+            # 1 to 4 items per customer basket
+            basket_size = min(random.choices([1, 2, 3, 4], weights=[0.45, 0.35, 0.15, 0.05])[0], len(daily_items_sold) - idx)
+            basket_items = daily_items_sold[idx : idx + basket_size]
+            idx += basket_size
+
+            # Check if we can inject an affinity pairing
+            if len(basket_items) == 1:
+                item_sku = basket_items[0][0]
+                if item_sku in affinities and idx < len(daily_items_sold):
+                    target_skus = affinities[item_sku]
+                    # Find if target sku exists later in today's pool
+                    for lookup_idx in range(idx, min(idx + 50, len(daily_items_sold))):
+                        if daily_items_sold[lookup_idx][0] in target_skus:
+                            # Swap into current basket!
+                            basket_items.append(daily_items_sold.pop(lookup_idx))
+                            break
+
+            for sku_code, spec_item, chunk_qty in basket_items:
+                sales_records.append({
+                    "sales_id": f"SLS-{len(sales_records)+1:08d}",
+                    "date": day_str,
+                    "invoice_id": basket_invoice,
+                    "product_id": sku_code,
+                    "product_name": spec_item["product_name"],
+                    "category": spec_item["category"],
+                    "quantity": chunk_qty,
+                    "unit_price": spec_item["selling_price"],
+                    "cost_price": spec_item["cost_price"],
+                    "total_revenue": round(chunk_qty * spec_item["selling_price"], 2),
+                    "total_cost": round(chunk_qty * spec_item["cost_price"], 2),
+                    "gross_profit": round(chunk_qty * (spec_item["selling_price"] - spec_item["cost_price"]), 2),
+                    "payment_method": basket_payment,
+                    "lost_sales_unfulfilled": 0,
+                })
+
+        # Step C & D: Damage & Reorder checks for ALL SKUs
+        for sku, state in inventory_state.items():
+            spec = state["spec"]
 
             # Step C: Occasional Damage / Expiry (Shrinkage is a reality in retail)
             # Probability ~0.3% per product per day

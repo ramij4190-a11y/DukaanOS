@@ -31,3 +31,4 @@
 2. **Feature Drift (PSI - Population Stability Index):** Detecting significant changes in consumer purchasing behaviors (e.g. sudden inflation spikes or new competitors).
 3. **Agent Reliability:** Tool execution latency, function call success rate, hallucination check, and fallback invocation rate.
 4. **API Latency & SLA:** 95th percentile response times under 200ms for point-of-sale transactions.
+

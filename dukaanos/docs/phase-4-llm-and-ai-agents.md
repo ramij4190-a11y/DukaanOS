@@ -56,3 +56,4 @@ Shopkeeper Voice / Text: "Agami kal kon kon product order korte hobe?" / "Kal ke
 1. **The LLM Never Writes Directly to the Database:** The LLM can only query read-only tools or generate a structured proposal payload (`DraftPurchaseOrder`).
 2. **Explicit Human-in-the-Loop Approval:** Financial and inventory transactions always require physical retailer confirmation (`Confirm Order` button or PIN).
 3. **Audit Logging:** Every prompt, tool invocation, returned tool state, and executed action is logged with latency, token usage, and tenant ID.
+

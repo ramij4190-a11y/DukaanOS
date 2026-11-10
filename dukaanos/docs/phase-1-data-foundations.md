@@ -79,3 +79,4 @@ If an ML model trains on $S_t$ directly, it learns that customer demand was zero
 - [x] Publication-grade Matplotlib/Seaborn visual charts.
 - [x] 100% passing automated test suite (`pytest tests/test_pipeline.py`).
 - [x] Architectural documentation and Git history.
+
