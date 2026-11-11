@@ -93,3 +93,4 @@ stateDiagram-v2
     AutoDraftPO --> IdleMonitoring: Notify Storekeeper
     AutoPromotion --> IdleMonitoring: Notify Storekeeper
 ```
+

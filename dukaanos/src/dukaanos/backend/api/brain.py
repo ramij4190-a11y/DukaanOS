@@ -69,3 +69,4 @@ def execute_autonomous_action(req: ExecuteActionRequest):
         "action_id": req.action_id,
         "message": f"Autonomous action '{req.action_id}' successfully executed into store pipeline."
     }
+

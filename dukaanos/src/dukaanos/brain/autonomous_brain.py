@@ -284,3 +284,4 @@ def get_store_brain(store_id: str = "STORE-001") -> AutonomousStoreBrain:
     if store_id not in _brain_registry:
         _brain_registry[store_id] = AutonomousStoreBrain(store_id=store_id)
     return _brain_registry[store_id]
+

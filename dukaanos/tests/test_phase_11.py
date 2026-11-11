@@ -152,3 +152,4 @@ def test_voice_inventory_autonomous_brain_loop(test_db):
     assert res.new_running_stock == 70
     assert res.days_to_depletion is not None
     assert res.brain_status in ["HEALTHY", "REORDER_NEEDED", "OVERSTOCKED"]
+

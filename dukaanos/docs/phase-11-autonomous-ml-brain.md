@@ -100,3 +100,4 @@ If $\text{DaysToDepletion}_t \le \hat{L}_s + 1$, the Autonomous Brain automatica
 | **Stockout Warning** | After shelves are already empty | **48-72 hours predictive lead time buffer** |
 | **Interaction Mode** | Typing in 15 different desktop forms | **Natural voice interaction + auto-pilot execution** |
 | **Compute Cost** | Expensive GPU cloud servers | **₹0 local Python incremental math (runs on any PC)** |
+
