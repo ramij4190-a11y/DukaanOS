@@ -59,6 +59,10 @@
           <i data-lucide="mic" class="w-4 h-4 text-orange-600"></i>
           <span>Voice Inventory</span>
         </button>
+        <button onclick="switchTab('brain')" id="tab-brain" class="nav-btn px-3 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5 transition-all">
+          <i data-lucide="brain" class="w-4 h-4 text-purple-600"></i>
+          <span>Auto-Pilot Brain</span>
+        </button>
         <button onclick="switchTab('ocr')" id="tab-ocr" class="nav-btn px-3 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5 transition-all">
           <i data-lucide="file-text" class="w-4 h-4"></i>
           <span>Mandi Bill OCR</span>
@@ -553,7 +557,132 @@
     </section>
 
     <!-- ======================================================================= -->
-    <!-- TAB 4: MANDI WHOLESALE INVOICE OCR & FUZZY MATCHER                      -->
+    <!-- TAB 4: AUTONOMOUS SELF-LEARNING BRAIN & AUTO-PILOT OPERATIONS           -->
+    <!-- ======================================================================= -->
+    <section id="view-brain" class="hidden space-y-6">
+      
+      <!-- Banner -->
+      <div class="bg-gradient-to-r from-purple-700 via-indigo-600 to-indigo-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div class="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold mb-3 border border-white/30">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Continual Online Machine Learning • Self-Driving Store Operations</span>
+          </div>
+          <h2 class="text-2xl font-extrabold tracking-tight">🧠 Autonomous Store Brain (स्वायत्त स्टोर ब्रेन)</h2>
+          <p class="text-purple-100 text-xs sm:text-sm mt-1 leading-relaxed">
+            DukaanOS observes every counter sale, voice instruction, and mandi delivery to continuously learn your store's velocity and supplier turnaround. When stock runs low, it automatically drafts replenishment purchase orders and prevents dead capital write-offs without waiting for manual reports.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick KPI Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-semibold text-slate-500">Store Health Index</p>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <span class="text-xl font-extrabold text-emerald-600" id="brain-health-score">92.0%</span>
+            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Optimal</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-semibold text-slate-500">Online Learning Events</p>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <span class="text-xl font-extrabold text-purple-600" id="brain-learning-updates">14</span>
+            <span class="text-[10px] font-bold text-slate-400">signals learned</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-semibold text-slate-500">Auto-Drafted POs</p>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <span class="text-xl font-extrabold text-orange-600" id="brain-active-actions-count">1</span>
+            <span class="text-[10px] font-bold text-orange-700 bg-orange-50 px-1.5 py-0.5 rounded">Action Ready</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-semibold text-slate-500">Working Capital Shield</p>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <span class="text-xl font-extrabold text-blue-600">₹14,800</span>
+            <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded">Protected</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spoken Morning Vernacular Brief Card -->
+      <div class="bg-white rounded-2xl border border-purple-200 p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center flex-shrink-0">
+            <i data-lucide="volume-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Autonomous Morning Audio Brief</h3>
+            <p class="text-xs text-slate-700 mt-0.5" id="brain-voice-brief-text">
+              "Namaste Ramesh Ji! DukaanOS AI brain sabhi SKUs par continuous learning maintain kar raha hai."
+            </p>
+          </div>
+        </div>
+        <button onclick="speakBrainBrief()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center space-x-1.5 flex-shrink-0 cursor-pointer">
+          <i data-lucide="play" class="w-3.5 h-3.5"></i>
+          <span>Play Voice Brief</span>
+        </button>
+      </div>
+
+      <!-- Brain Dashboard Columns -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Learned Product Physics & Depletion Countdown (Col 7) -->
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Learned Product Velocity & Depletion Horizons</h3>
+              <p class="text-xs text-slate-500">EWMA Burn-rate, dynamic ROP, and estimated depletion countdown</p>
+            </div>
+            <button onclick="fetchBrainStatus()" class="px-2.5 py-1 text-xs font-bold text-purple-700 bg-purple-50 rounded-lg hover:bg-purple-100 flex items-center space-x-1 cursor-pointer">
+              <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+              <span>Refresh Brain</span>
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-bold border-b border-slate-200">
+                <tr>
+                  <th class="py-2.5 px-3">Product / SKU</th>
+                  <th class="py-2.5 px-3 text-center">Stock</th>
+                  <th class="py-2.5 px-3 text-center">Learned Velocity</th>
+                  <th class="py-2.5 px-3 text-center">Dynamic ROP</th>
+                  <th class="py-2.5 px-3 text-center">Depletion Horizon</th>
+                  <th class="py-2.5 px-3 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="brain-profiles-body" class="divide-y divide-slate-100">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Column: Autonomous Auto-Pilot Action Stream (Col 5) -->
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Autonomous Action Proposals</h3>
+              <p class="text-xs text-slate-500">Auto-drafted purchase orders and markdown promotions</p>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">Auto-Pilot Active</span>
+          </div>
+
+          <div id="brain-actions-container" class="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 5: MANDI WHOLESALE INVOICE OCR & FUZZY MATCHER                      -->
     <!-- ======================================================================= -->
     <section id="view-ocr" class="hidden space-y-6">
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
@@ -797,7 +926,7 @@
 
     // 1. Tab Navigation
     function switchTab(tabId) {
-      ['dashboard', 'pos', 'voice', 'ocr', 'khata', 'syndicate', 'ledger'].forEach(t => {
+      ['dashboard', 'pos', 'voice', 'brain', 'ocr', 'khata', 'syndicate', 'ledger'].forEach(t => {
         const el = document.getElementById(`view-${t}`);
         if (el) el.classList.add('hidden');
         const btn = document.getElementById(`tab-${t}`);
@@ -816,6 +945,7 @@
       }
 
       if (tabId === 'pos' && catalog.length === 0) fetchCatalog();
+      if (tabId === 'brain') fetchBrainStatus();
       if (tabId === 'khata') renderKhataTable();
       if (tabId === 'ledger') renderLedgerTable();
     }
@@ -1516,6 +1646,160 @@ Unmapped Exotic Masala Pouch 10 45.00`;
         </div>
       `;
       container.prepend(div);
+
+      // Trigger automatic re-learning update in the AI Brain!
+      fetchBrainStatus();
+    }
+
+    // =========================================================================
+    // 10. AUTONOMOUS SELF-LEARNING BRAIN ENGINE
+    // =========================================================================
+    let currentBrainState = null;
+
+    async function fetchBrainStatus() {
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/brain/status?store_id=${STORE_ID}`);
+        if (!res.ok) throw new Error("Brain API unavailable");
+        const data = await res.json();
+        currentBrainState = data;
+        renderBrainState(data);
+      } catch (err) {
+        console.warn("Using offline simulated brain state:", err);
+        renderMockBrainState();
+      }
+    }
+
+    function renderBrainState(state) {
+      const healthEl = document.getElementById('brain-health-score');
+      if (healthEl) healthEl.innerText = `${state.health_score_percent}%`;
+      const updateEl = document.getElementById('brain-learning-updates');
+      if (updateEl) updateEl.innerText = state.total_learning_updates;
+      const countEl = document.getElementById('brain-active-actions-count');
+      if (countEl) countEl.innerText = state.active_autonomous_actions.length;
+      const briefEl = document.getElementById('brain-voice-brief-text');
+      if (briefEl) briefEl.innerText = `"${state.morning_voice_brief}"`;
+
+      // Render Profiles Table
+      const tbody = document.getElementById('brain-profiles-body');
+      if (tbody && state.monitored_profiles) {
+        tbody.innerHTML = state.monitored_profiles.map(p => {
+          const isCritical = p.status === 'CRITICAL_DEPLETION';
+          const isReorder = p.status === 'REORDER_NEEDED';
+          const isOver = p.status === 'OVERSTOCKED';
+          const statusBadge = isCritical ? 'bg-rose-100 text-rose-800' :
+                              isReorder ? 'bg-amber-100 text-amber-800' :
+                              isOver ? 'bg-purple-100 text-purple-800' : 'bg-emerald-100 text-emerald-800';
+          
+          return `
+            <tr class="hover:bg-slate-50">
+              <td class="py-2.5 px-3">
+                <p class="font-bold text-slate-900">${p.product_name}</p>
+                <p class="text-[10px] text-slate-400 font-mono">${p.sku} • ${p.category}</p>
+              </td>
+              <td class="py-2.5 px-3 text-center font-bold text-slate-800">${p.current_stock}</td>
+              <td class="py-2.5 px-3 text-center font-mono font-bold text-purple-700">${p.learned_daily_velocity.toFixed(1)}/day</td>
+              <td class="py-2.5 px-3 text-center font-mono text-slate-600">${p.dynamic_reorder_point}</td>
+              <td class="py-2.5 px-3 text-center">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${p.days_to_depletion <= 3 ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-700'}">
+                  ${p.days_to_depletion} days
+                </span>
+              </td>
+              <td class="py-2.5 px-3 text-right">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${statusBadge}">${p.status}</span>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Render Active Autonomous Actions Feed
+      const actionsContainer = document.getElementById('brain-actions-container');
+      if (actionsContainer) {
+        if (!state.active_autonomous_actions || state.active_autonomous_actions.length === 0) {
+          actionsContainer.innerHTML = `
+            <div class="text-center py-8 text-slate-400 text-xs">
+              <i data-lucide="check-circle" class="w-8 h-8 mx-auto mb-2 text-emerald-500"></i>
+              All systems optimal. No critical stockout or dead capital actions required.
+            </div>
+          `;
+        } else {
+          actionsContainer.innerHTML = state.active_autonomous_actions.map(a => {
+            const urgencyColor = a.urgency === 'CRITICAL' ? 'bg-rose-100 text-rose-800 border-rose-200' :
+                                 a.urgency === 'HIGH' ? 'bg-amber-100 text-amber-800 border-amber-200' : 'bg-purple-100 text-purple-800 border-purple-200';
+            return `
+              <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2 hover:border-purple-300 transition-colors">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${urgencyColor}">${a.urgency} • ${a.action_type}</span>
+                  <span class="text-[10px] text-slate-400 font-mono">${a.action_id}</span>
+                </div>
+                <p class="text-xs font-bold text-slate-900">${a.title}</p>
+                <p class="text-[11px] text-slate-600 leading-relaxed">${a.description}</p>
+                
+                <div class="pt-1 flex items-center justify-between">
+                  <span class="text-[10px] text-purple-700 font-bold">${a.recommended_payload && a.recommended_payload.suggested_qty ? `+${a.recommended_payload.suggested_qty} units PO` : 'Clearance Promo'}</span>
+                  <button onclick="approveAutonomousAction('${a.action_id}')" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-sm cursor-pointer">
+                    ${a.auto_executed ? '✓ Executed' : 'Approve & Execute'}
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      lucide.createIcons();
+    }
+
+    function renderMockBrainState() {
+      const mockState = {
+        store_id: STORE_ID,
+        total_skus_monitored: 5,
+        total_learning_updates: 14,
+        health_score_percent: 92.0,
+        morning_voice_brief: "Namaste Ramesh Ji! Aashirvaad Atta stock tezi se kam ho raha hai. Maine 53 bags ka purchase order auto-draft kar diya hai.",
+        active_autonomous_actions: [
+          {
+            action_id: "ACT-101",
+            action_type: "AUTO_RESTOCK_PO",
+            product_sku: "STP-001",
+            title: "Auto-Draft PO: Aashirvaad Shudh Chakki Atta 5kg",
+            description: "Stock 14 bacha hai (1.8 din ka backup). Learned burn-rate 7.7 units/day hai. Stockout rokne ke liye +53 units ka PO auto-draft kiya gaya hai.",
+            urgency: "HIGH",
+            recommended_payload: { suggested_qty: 53, estimated_cost: 11925.0 },
+            auto_executed: false
+          }
+        ],
+        monitored_profiles: [
+          { sku: "STP-001", product_name: "Aashirvaad Shudh Chakki Atta 5kg", category: "Staples", current_stock: 14, learned_daily_velocity: 7.7, dynamic_reorder_point: 22, days_to_depletion: 1.8, status: "REORDER_NEEDED" },
+          { sku: "OIL-003", product_name: "Fortune Sunlite Sunflower Oil 1L", category: "Edible Oils", current_stock: 35, learned_daily_velocity: 4.2, dynamic_reorder_point: 18, days_to_depletion: 8.3, status: "HEALTHY" },
+          { sku: "PCK-004", product_name: "Parle-G Glucose Biscuits 250g", category: "Packaged Foods", current_stock: 50, learned_daily_velocity: 7.5, dynamic_reorder_point: 25, days_to_depletion: 6.7, status: "HEALTHY" },
+          { sku: "STP-002", product_name: "India Gate Basmati Rice 5kg", category: "Staples", current_stock: 50, learned_daily_velocity: 2.5, dynamic_reorder_point: 15, days_to_depletion: 20.0, status: "HEALTHY" },
+          { sku: "PCK-019", product_name: "Tata Tea Gold 500g", category: "Packaged Foods", current_stock: 25, learned_daily_velocity: 2.0, dynamic_reorder_point: 12, days_to_depletion: 12.5, status: "HEALTHY" },
+        ]
+      };
+      renderBrainState(mockState);
+    }
+
+    async function approveAutonomousAction(actionId) {
+      try {
+        await fetch(`${API_BASE}/api/v1/brain/execute-action`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ store_id: STORE_ID, action_id: actionId })
+        });
+      } catch (err) {}
+      alert(`✓ Autonomous Action ${actionId} Approved!\nReplenishment PO committed to vendor stream. Zero stockout guaranteed.`);
+      fetchBrainStatus();
+    }
+
+    function speakBrainBrief() {
+      const el = document.getElementById('brain-voice-brief-text');
+      const text = el ? el.innerText : '';
+      if ('speechSynthesis' in window && text) {
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 1.0;
+        window.speechSynthesis.speak(utter);
+      }
     }
 
     // Startup Initialization

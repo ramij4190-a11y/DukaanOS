@@ -4,7 +4,7 @@
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Platform Status](https://img.shields.io/badge/Tests-44%20Passed-brightgreen.svg)](file:///d:/Ai/dukaanos/tests/)
+[![Platform Status](https://img.shields.io/badge/Tests-48%20Passed-brightgreen.svg)](file:///d:/Ai/dukaanos/tests/)
 
 > 📖 **Comprehensive Master Reference:** See [`docs/full-platform-capabilities-and-tech-stack.md`](file:///d:/Ai/dukaanos/docs/full-platform-capabilities-and-tech-stack.md) for full system capabilities, algorithmic formulations, ₹0 open-source technology stack, and phase-by-phase implementation details.
 
@@ -226,11 +226,19 @@ python -m pytest dukaanos/tests -v
   - Web Speech Studio integrated in the web dashboard at `http://127.0.0.1:8000/` with interactive mic recording, real-time transcription, 1-click preset pills, and immediate speech synthesis (TTS) audio confirmation.
   - Multi-store enterprise cross-branch rebalancing algorithm automatically transferring surplus inventory to deficit branches, preventing stockouts and saving operating capital.
 
+- [x] **Phase 11: The Autonomous Self-Learning Kirana Brain (Self-Driving Store Engine)**
+  - Blueprint: [`docs/phase-11-autonomous-ml-brain.md`](file:///d:/Ai/dukaanos/docs/phase-11-autonomous-ml-brain.md)
+  - Visual Guide: [`docs/phase-11-visual-guide.md`](file:///d:/Ai/dukaanos/docs/phase-11-visual-guide.md)
+  - Continual Online Machine Learning without batch retraining: incrementally updates SKU demand velocity ($\mu$) and volatility ($\sigma$) via EWMA on every counter sale and voice command.
+  - Predicts depletion countdown (Days to Depletion) and auto-tunes statistical safety stock and Reorder Points (ROP).
+  - Autonomous Self-Driving Operations: automatically drafts replenishment POs before stockout hits and proposes dead capital clearance markdowns.
+  - Integrated into the web dashboard and accessible via live public tunnel URL.
+
 ---
 
 ## 9. Complete Verification & Test Suite
 
-The entire platform is covered by 44 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, multimodal ingestion, offline edge sync, credit risk, federated Mandi intelligence, voice inventory AI, and startup business metrics:
+The entire platform is covered by 48 automated unit and integration tests across data engineering, backend APIs, machine learning, AI agents, production MLOps, multimodal ingestion, offline edge sync, credit risk, federated Mandi intelligence, voice inventory AI, autonomous self-learning brain, and startup business metrics:
 
 ```bash
 # Run complete platform regression suite
@@ -247,7 +255,8 @@ dukaanos/tests/test_multimodal.py (6 tests)      --> OCR fuzzy matcher, confiden
 dukaanos/tests/test_phase_8.py (3 tests)         --> Offline batch sync, idempotency, credit risk, UPI reminders
 dukaanos/tests/test_phase_9.py (3 tests)         --> Federated Mandi benchmarks, overpaying alerts, syndicate group PO
 dukaanos/tests/test_voice_inventory.py (4 tests) --> Voice inward addition, damage deduction, audit reconciliation, Indic languages
+dukaanos/tests/test_phase_11.py (4 tests)        --> Online EWMA learning, auto-drafted POs, dead capital markdown, voice-brain loop
 dukaanos/tests/test_startup.py (3 tests)         --> Pilot cohort summary, KPI improvements, ROI unit economics
-============================== 44 passed in 25.8s ==============================
+============================== 48 passed in 43.8s ==============================
 ```
 

@@ -44,6 +44,9 @@ class VoiceInventoryMutationResult(BaseModel):
     ledger_transaction_id: Optional[str]
     success: bool
     voice_reply_text: str
+    days_to_depletion: Optional[float] = None
+    brain_status: Optional[str] = None
+    autonomous_action_triggered: Optional[str] = None
 
 
 class VoiceInventoryAI:
@@ -287,7 +290,34 @@ class VoiceInventoryAI:
 
         new_stock = ledger_entry.running_balance
 
-        # 8. Synthesize localized audio voice confirmation
+        # 8. Continual Online Machine Learning Brain Ingestion
+        days_left = None
+        brain_status = "HEALTHY"
+        action_triggered = None
+        try:
+            from dukaanos.src.dukaanos.brain.autonomous_brain import get_store_brain
+            brain = get_store_brain(store_id)
+            learned_profile = brain.ingest_signal(
+                sku=prod_sku,
+                product_name=prod_name,
+                event_type=event_type,
+                quantity_delta=delta,
+                new_balance=new_stock,
+                unit_cost=cost_price,
+                selling_price=matched_prod.get("selling_price", cost_price * 1.15),
+                category=matched_prod.get("category", "General"),
+            )
+            days_left = learned_profile.days_to_depletion
+            brain_status = learned_profile.status
+
+            # Check if any new action was generated for this SKU
+            recent_action = next((a for a in brain.actions if a.product_sku == prod_sku and not a.auto_executed), None)
+            if recent_action and brain_status in ["CRITICAL_DEPLETION", "REORDER_NEEDED", "OVERSTOCKED"]:
+                action_triggered = recent_action.title
+        except Exception:
+            pass
+
+        # 9. Synthesize localized audio voice confirmation
         short_name = prod_name.split()[0] + " " + (prod_name.split()[1] if len(prod_name.split()) > 1 else "")
         if event_type == "PURCHASE":
             reply = f"Theek hai Ramesh Ji! {short_name} me {abs(delta)} units add ho gaye hain. Naya stock hai {new_stock} units."
@@ -299,6 +329,9 @@ class VoiceInventoryAI:
             reply = f"Theek hai Ramesh Ji! {short_name} ke {abs(delta)} units ka bill kat gaya hai. Remaining stock: {new_stock} units."
         else:
             reply = f"Theek hai Ramesh Ji! {short_name} update ho gaya. Current balance: {new_stock}."
+
+        if action_triggered:
+            reply += f" AI Brain notice: {action_triggered} trigger ho gaya hai."
 
         return VoiceInventoryMutationResult(
             spoken_text=spoken_text,
@@ -314,4 +347,7 @@ class VoiceInventoryAI:
             ledger_transaction_id=ledger_entry.transaction_id,
             success=True,
             voice_reply_text=reply,
+            days_to_depletion=days_left,
+            brain_status=brain_status,
+            autonomous_action_triggered=action_triggered,
         )
