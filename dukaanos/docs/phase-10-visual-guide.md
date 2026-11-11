@@ -117,3 +117,4 @@ flowchart LR
 .venv\Scripts\python.exe -m pytest dukaanos/tests/ -v
 ```
 All **44 automated tests** pass with 100% green coverage across the entire platform.
+

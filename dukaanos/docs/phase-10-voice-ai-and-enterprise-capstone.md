@@ -96,3 +96,4 @@ $$\text{TransferQty} = \min\left(\text{SS}_A - S_A, S_B - \text{ROP}_B\right)$$
 2. `test_voice_pos_checkout_execution`: Verifies that a voice command automatically commits a sale and deducts the inventory ledger.
 3. `test_cross_store_rebalancing`: Confirms inter-store excess detection and transfer recommendation math.
 4. `test_consolidated_enterprise_rollup`: Verifies multi-store consolidated revenue, margin, and stock metrics.
+

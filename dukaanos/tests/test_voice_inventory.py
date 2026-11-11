@@ -146,3 +146,4 @@ def test_voice_multilingual_language_detection():
     lang_en, intent_en, event_en = VoiceInventoryAI.detect_intent_and_event("physical count is 40 units")
     assert lang_en == "English"
     assert event_en == "ADJUSTMENT"
+

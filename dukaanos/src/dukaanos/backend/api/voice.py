@@ -43,3 +43,4 @@ def voice_inventory_update(
         spoken_text=req.spoken_text,
         catalog=catalog,
     )
+

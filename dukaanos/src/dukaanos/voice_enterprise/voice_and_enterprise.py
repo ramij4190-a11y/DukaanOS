@@ -256,3 +256,4 @@ class EnterpriseMultiStoreService:
                         d.current_stock += transfer_qty
 
         return recommendations
+
